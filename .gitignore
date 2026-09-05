@@ -1,0 +1,7 @@
+node_modules/
+dist/
+packs/
+.private/
+.DS_Store
+._*
+coverage/

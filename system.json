@@ -1,0 +1,81 @@
+{
+  "id": "eterno-azul",
+  "title": "Eterno Azul para Foundry VTT",
+  "description": "Sistema nativo de aventura y navegación celeste. Proyecto no oficial.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "13.351",
+    "verified": "13.351"
+  },
+  "authors": [
+    {
+      "name": "ManuRomera",
+      "url": "https://github.com/ManuRomera"
+    }
+  ],
+  "esmodules": [
+    "module/eterno-azul.mjs"
+  ],
+  "styles": [
+    "styles/tokens.css",
+    "styles/system.css"
+  ],
+  "languages": [
+    {
+      "lang": "es",
+      "name": "Español",
+      "path": "lang/es.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "buscador": {},
+      "pnj": {},
+      "surcazul": {}
+    },
+    "Item": {
+      "origen": {},
+      "arquetipo": {},
+      "aptitud": {},
+      "pertrecho": {},
+      "arma": {},
+      "armadura": {},
+      "verbo": {},
+      "ritual": {},
+      "bateria": {},
+      "municion": {},
+      "mejora": {},
+      "condicion": {},
+      "herida": {},
+      "desperfecto": {},
+      "sena": {},
+      "vinculo": {}
+    }
+  },
+  "packs": [
+    {
+      "name": "manual",
+      "label": "EA · Manual del sistema",
+      "path": "packs/manual",
+      "type": "JournalEntry",
+      "system": "eterno-azul",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ],
+  "url": "https://github.com/ManuRomera/eterno-azul-foundry",
+  "manifest": "https://raw.githubusercontent.com/ManuRomera/eterno-azul-foundry/main/system.json",
+  "download": "https://github.com/ManuRomera/eterno-azul-foundry/releases/download/v0.1.0/eterno-azul.zip",
+  "primaryTokenAttribute": "damage",
+  "grid": {
+    "distance": 1,
+    "units": "zona"
+  }
+}

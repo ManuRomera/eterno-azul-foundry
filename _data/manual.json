@@ -1,0 +1,17 @@
+[
+  {
+    "_id": "EAManual00000001",
+    "name": "Bienvenidos al Azul · uso del sistema",
+    "pages": [
+      {
+        "_id": "EAManualPage0001",
+        "name": "Antes de zarpar",
+        "type": "text",
+        "text": {
+          "format": 1,
+          "content": "<h1>Eterno Azul para Foundry VTT</h1><p>Este compendio documenta el software. Obtén las reglas oficiales en shadowlands.es/descargas.</p><h2>Buscadores</h2><p>Crea un Actor Buscador y completa Origen, Arquetipo, dados y Señas con tu ficha. Pulsa una Acción para abrir la reserva. El botón del dado cambia su tamaño; Mayús + clic abre la reserva manual.</p><h2>Recursos y consecuencias</h2><p>Usa los cristales para Bríos narrativos y Aptitudes, y las tarjetas para repetir. Gestionar daño permite elegir Defensa, Brío y Heridas. Los Vínculos se arrastran desde otro Actor y se usan en su tarjeta de Desafío.</p><h2>DJ</h2><p>En Ajustes del sistema, abre Cartografía del Azul para plantear Desafíos e importar Actors CSB. La DJ activa resuelve operaciones en orden. Conserva tus exportaciones antes de migrar.</p><h2>Navíos</h2><p>Abre la consola desde un Surcazul, elige un rival y un tripulante. Navegar y Combatir usan el mismo motor. Resuelve distancia y daño tras acordar las consecuencias.</p>"
+        }
+      }
+    ]
+  }
+]

@@ -9,8 +9,8 @@
     "build": "node scripts/build.mjs"
   },
   "devDependencies": {
-    "classic-level": "2.0.0",
     "archiver": "7.0.1",
-    "handlebars": "4.7.8"
+    "classic-level": "2.0.0",
+    "handlebars": "4.7.9"
   }
 }

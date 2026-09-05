@@ -1,0 +1,27 @@
+{
+  "EA": {
+    "Actor": {
+      "buscador": "Buscador",
+      "pnj": "NPC",
+      "surcazul": "Surcazul"
+    },
+    "Item": {
+      "origen": "Origen",
+      "arquetipo": "Arquetipo",
+      "aptitud": "Aptitud",
+      "pertrecho": "Pertrecho",
+      "arma": "Arma",
+      "armadura": "Armadura",
+      "verbo": "Verbo",
+      "ritual": "Ritual",
+      "bateria": "Batería",
+      "municion": "Munición",
+      "mejora": "Mejora de navío",
+      "condicion": "Condición",
+      "herida": "Herida",
+      "desperfecto": "Desperfecto",
+      "sena": "Seña",
+      "vinculo": "Vínculo"
+    }
+  }
+}

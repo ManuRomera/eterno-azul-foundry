@@ -2,7 +2,7 @@
   "id": "eterno-azul",
   "title": "Eterno Azul para Foundry VTT",
   "description": "Sistema nativo de aventura y navegación celeste. Proyecto no oficial.",
-  "version": "0.1.0",
+  "version": "0.1.0-rc.1",
   "compatibility": {
     "minimum": "13.351",
     "verified": "13.351",
@@ -68,7 +68,7 @@
   ],
   "url": "https://github.com/ManuRomera/eterno-azul-foundry",
   "manifest": "https://raw.githubusercontent.com/ManuRomera/eterno-azul-foundry/main/system.json",
-  "download": "https://github.com/ManuRomera/eterno-azul-foundry/releases/download/v0.1.0/eterno-azul.zip",
+  "download": "https://github.com/ManuRomera/eterno-azul-foundry/releases/download/v0.1.0-rc.1/eterno-azul.zip",
   "primaryTokenAttribute": "damage",
   "grid": {
     "distance": 1,

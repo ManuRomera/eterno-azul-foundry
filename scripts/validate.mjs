@@ -35,6 +35,24 @@ for (const p of await walk("lang")) JSON.parse(await fs.readFile(p));
 for (const p of await walk("_data")) {
   const rows = JSON.parse(await fs.readFile(p));
   assert.equal(new Set(rows.map((r) => r._id)).size, rows.length);
-  for (const row of rows) assert.match(row._id, /^[a-zA-Z0-9]{16}$/);
+  for (const row of rows) {
+    assert.match(row._id, /^[a-zA-Z0-9]{16}$/);
+    for (const page of row.pages ?? [])
+      assert.match(page._id, /^[a-zA-Z0-9]{16}$/);
+  }
 }
 console.log("Manifest, versiones, módulos, plantillas e IDs válidos");
+
+for (const p of await walk("templates")) {
+  const source = await fs.readFile(p, "utf8");
+  for (const match of source.matchAll(/{{> "systems\/eterno-azul\/([^"]+)"}}/g))
+    await fs.access(match[1]);
+}
+for (const p of await walk("module")) {
+  if (!p.endsWith(".mjs")) continue;
+  const source = await fs.readFile(p, "utf8");
+  for (const match of source.matchAll(/(?:from|import)\s*["'](\.[^"']+)["']/g))
+    await fs.access(new URL(match[1], new URL(p, `file://${process.cwd()}/`)));
+  if (!p.startsWith("module/compat/"))
+    assert.doesNotMatch(source, /game\.release\??\.generation/);
+}

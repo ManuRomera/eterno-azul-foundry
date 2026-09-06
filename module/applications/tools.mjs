@@ -1,3 +1,4 @@
+import { DialogV2 } from "../compat/applications.mjs";
 import { diagnostic } from "../compat/runtime.mjs";
 import { createMessage, rollPrivacy } from "../compat/chat.mjs";
 import { onChatRender } from "../compat/hooks.mjs";
@@ -116,7 +117,7 @@ export class ToolsApp extends HandlebarsApplicationMixin(ApplicationV2) {
       throw new Error("Selecciona un JSON de menos de 10 MB");
     const source = JSON.parse(await file.text());
     const { actor, warnings } = convertActor(source, f.get("type"));
-    const ok = await foundry.applications.api.DialogV2.confirm({
+    const ok = await DialogV2.confirm({
       window: { title: "Revisar conversión" },
       content: `<div class="ea-dialog"><p>${esc(actor.name)} · ${actor.items.length} elementos</p><ul>${warnings.map((w) => `<li>${esc(w)}</li>`).join("")}</ul><p>Crear copia nueva sin modificar el original.</p></div>`,
     });

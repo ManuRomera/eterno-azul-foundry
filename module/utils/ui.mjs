@@ -1,3 +1,4 @@
+import { DialogV2 } from "../compat/applications.mjs";
 export const esc = (value) =>
   String(value ?? "").replace(
     /[&<>"']/g,
@@ -49,7 +50,7 @@ export const label = (k) =>
     arc: "Posición de batería",
   })[k] ?? k;
 export async function prompt(title, content) {
-  return foundry.applications.api.DialogV2.prompt({
+  return DialogV2.prompt({
     window: { title },
     classes: ["ea-app"],
     content: `<div class="ea-dialog">${content}</div>`,

@@ -38,4 +38,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
-        run: gh release create "$RELEASE_TAG" dist/eterno-azul.zip dist/system.json dist/SHA256SUMS --verify-tag --title "Eterno Azul $RELEASE_TAG" --notes-file dist/notes.md
+        run: gh release create "$RELEASE_TAG" dist/eterno-azul.zip dist/system.json dist/SHA256SUMS --verify-tag --prerelease --title "Eterno Azul $RELEASE_TAG" --notes-file dist/notes.md

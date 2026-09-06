@@ -1,3 +1,4 @@
+import { DialogV2 } from "../compat/applications.mjs";
 import { identityItem, migrateIdentity } from "../migrations/identity.mjs";
 import { ID, ACTIONS, TYPES, DISTANCES } from "../config.mjs";
 import { DICE } from "../rules/challenge.mjs";
@@ -260,7 +261,7 @@ export class EAActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static async remove(e, t) {
     if (!this.isEditable) return;
     const id = t.closest("[data-item-id]").dataset.itemId;
-    const ok = await foundry.applications.api.DialogV2.confirm({
+    const ok = await DialogV2.confirm({
       window: { title: "Eliminar elemento" },
       content: `<p>¿Eliminar ${esc(this.actor.items.get(id).name)}?</p>`,
     });

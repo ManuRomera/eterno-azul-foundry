@@ -1,0 +1,77 @@
+<div class="ea-health">{{#unless isShip}}<label>Aguante<input
+        type="number"
+        min="0"
+        name="system.stamina"
+        value="{{system.stamina}}"
+      />
+</label>{{/unless}}<label>Daño acumulado<input
+      type="number"
+      min="0"
+      name="system.damage"
+      value="{{system.damage}}"
+    />
+</label>{{#if isPC}}<label>Defensa actual<input
+        type="number"
+        min="0"
+        name="system.defense.value"
+        value="{{system.defense.value}}"
+      />
+</label>
+<label>Defensa total<input
+        type="number"
+        min="0"
+        name="system.defense.max"
+        value="{{system.defense.max}}"
+      />
+</label>{{/if}}</div>{{#if system.out}}<p class="ea-danger">Fuera de
+    combate · el daño supera el umbral</p>{{/if}}<div class="ea-grid">
+<button
+    type="button"
+    data-action="damage"
+  >Gestionar daño</button>{{#if isPC}}<button
+      type="button"
+      data-action="rest"
+    >Tomar un descanso</button>{{/if}}</div>
+<details
+  open
+  data-section="conditions"
+>
+<summary>Heridas, condiciones y desperfectos</summary>
+<button
+    type="button"
+    data-action="create"
+    data-type="condicion"
+  >Añadir Condición</button>{{#each conditions}}<div
+      class="ea-list-row"
+      data-item-id="{{id}}"
+    >
+<button type="button" data-action="edit">{{name}}
+        ·
+        {{system.severity}}
+{{system.intensity}}</button>
+<button
+        type="button"
+        data-action="remove"
+        aria-label="Eliminar {{name}}"
+      >×</button>
+</div>{{/each}}</details>
+<details
+  open
+  data-section="features"
+>
+<summary>Aptitudes y capacidades</summary>
+<button
+    type="button"
+    data-action="create"
+    data-type="aptitud"
+  >Añadir Aptitud</button>{{#each features}}<div
+      class="ea-list-row"
+      data-item-id="{{id}}"
+    >
+<button type="button" data-action="edit">{{name}}</button>
+<button
+        type="button"
+        data-action="remove"
+        aria-label="Eliminar {{name}}"
+      >×</button>
+</div>{{/each}}</details>

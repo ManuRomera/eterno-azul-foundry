@@ -1,0 +1,17 @@
+<section class="ea-body">{{#unless limited}}
+{{> "systems/eterno-azul/templates/actors/common/tabs.hbs"}}
+{{#if play}}<div class="ea-layout">{{> "systems/eterno-azul/templates/actors/surcazul/sidebar.hbs"}}<main class="ea-main">
+<section class="ea-navigation-summary" aria-label="Situación naval"><p class="ea-eyebrow">{{navalDistance}}</p><strong>{{navalRival}}</strong><p>Munición {{ammo}} · {{#if system.naval.pursuer}}Perseguidor{{else}}Perseguido{{/if}}</p><div class="ea-grid">{{#each batteries}}<span>{{name}} · {{system.damage}}</span>{{/each}}</div></section>
+<div class="ea-instruments">{{#each shipStats}}<label>{{label}}<input type="number" min="0" name="system.{{key}}" value="{{value}}">
+</label>{{/each}}</div>
+<label>Estado<input name="system.state" value="{{system.state}}">
+</label>{{> "systems/eterno-azul/templates/actors/common/health-features.hbs"}}</main>
+</div>{{/if}}
+{{#if inventory}}
+{{> "systems/eterno-azul/templates/actors/common/inventory.hbs"}}
+{{/if}}
+{{#if notes}}
+{{> "systems/eterno-azul/templates/actors/common/notes.hbs"}}
+{{/if}}
+{{else}}<p>El propietario no ha compartido los detalles de esta ficha.</p>{{/unless}}</section>
+

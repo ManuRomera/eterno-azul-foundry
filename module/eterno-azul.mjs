@@ -1,8 +1,16 @@
+import {
+  migrateWorldIdentities,
+  migrateIdentity,
+} from "./migrations/identity.mjs";
 import { diagnostic, versionInfo } from "./compat/runtime.mjs";
 import { DocumentSheetConfig } from "./compat/applications.mjs";
 import { ID, TYPES } from "./config.mjs";
 import { actorModels, itemModels } from "./data/models.mjs";
-import { EAActorSheet } from "./sheets/actor.mjs";
+import {
+  EABuscadorSheet,
+  EANPCSheet,
+  EASurcazulSheet,
+} from "./sheets/actor.mjs";
 import { EAItemSheet } from "./sheets/item.mjs";
 import { ChallengeApp, chatAction } from "./applications/challenge.mjs";
 import { NavalApp } from "./applications/naval.mjs";
@@ -20,11 +28,17 @@ Hooks.once("init", () => {
   CONFIG.Item.typeLabels = Object.fromEntries(
     Object.keys(TYPES).map((k) => [k, `EA.Item.${k}`]),
   );
-  DocumentSheetConfig.registerSheet(Actor, ID, EAActorSheet, {
-    types: Object.keys(actorModels),
-    makeDefault: true,
-    label: "Eterno Azul",
-  });
+  for (const [type, sheet] of Object.entries({
+    buscador: EABuscadorSheet,
+    pnj: EANPCSheet,
+    surcazul: EASurcazulSheet,
+  })) {
+    DocumentSheetConfig.registerSheet(Actor, ID, sheet, {
+      types: [type],
+      makeDefault: true,
+      label: "Eterno Azul",
+    });
+  }
   DocumentSheetConfig.registerSheet(Item, ID, EAItemSheet, {
     types: Object.keys(itemModels),
     makeDefault: true,
@@ -41,7 +55,7 @@ Hooks.once("init", () => {
   });
   game.eternoAzul = { ChallengeApp, NavalApp, ToolsApp, request, diagnostic };
 });
-Hooks.once("ready", () => {
+Hooks.once("ready", async () => {
   const v = versionInfo();
   console.info(
     `Eterno Azul ${game.system.version} · Foundry ${v.version} · compatibility profile ${v.profile}`,
@@ -49,6 +63,13 @@ Hooks.once("ready", () => {
   setupAuthority();
   setupCards(chatAction);
   setupInvitations();
+  try {
+    await migrateWorldIdentities();
+  } catch (e) {
+    ui.notifications.error(
+      `No se pudo completar la migración de identidad: ${e.message}`,
+    );
+  }
 });
 
 Hooks.on("preCreateActor", (actor, data) => {
@@ -56,4 +77,14 @@ Hooks.on("preCreateActor", (actor, data) => {
     actor.updateSource({
       img: `systems/eterno-azul/assets/${data.type === "surcazul" ? "ea-ship-placeholder.webp" : "ea-system-icon.png"}`,
     });
+});
+
+Hooks.on("createActor", async (actor) => {
+  if (game.users.activeGM?.id === game.user.id) {
+    try {
+      await migrateIdentity(actor);
+    } catch (e) {
+      ui.notifications.error(e.message);
+    }
+  }
 });

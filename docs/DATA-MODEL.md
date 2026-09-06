@@ -1,6 +1,6 @@
 # Modelo de datos
 
-Actor Buscador: origin, archetype, brio/defense {value,max}, stamina, damage, actions (dado por key), loot, kit, biography, background, notes, shipUuid, lastRest, schemaVersion. bulk y out son derivados.
+Actor Buscador: identity {originId, archetypeId}, brio/defense {value,max}, stamina, damage, actions (dado por key), loot, kit, biography, background, notes, shipUuid, lastRest, schemaVersion. bulk y out son derivados.
 
 Actor PNJ: threat, stamina, damage, traits, characteristicActions, attacks, description, notes. No tira Desafíos.
 
@@ -15,3 +15,6 @@ Condición: intensity, duration, visibility, narrative, effect, limitedUses, exp
 Visibilidad de la interfaz no equivale a secreto: los observadores de Actor reciben datos completos. Los secretos de DJ se guardan en Diarios con permisos privados.
 
 ChatMessage flags.eterno-azul.challenge: actorUuid, action, signName, context, pool, results, risk, successes, outcome, successMargin, consequenceMargin, bondBonus, bonds, revision, history, forced, bravata. Peticiones independientes identifican actorUuid, operation, payload y status.
+
+## Identidad estructurada
+Origen y Arquetipo son Items enlazados por system.identity. La cabecera resuelve esos documentos. Los campos origin/archetype del esquema solo permiten leer Actors anteriores y se vacían tras migración segura; no se editan desde la UI. Importación y asistente crean Items directamente.

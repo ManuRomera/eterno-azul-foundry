@@ -1,3 +1,4 @@
+import { identityPlan } from "./identity.mjs";
 import { ACTIONS, ID } from "../config.mjs";
 const n = (v, fallback = 0) =>
   Number.isFinite(Number(v)) ? Math.max(0, Number(v)) : fallback;
@@ -147,7 +148,7 @@ export function convertActor(raw, type = "buscador") {
           name: plain(v.nombuscador),
           uuid: "",
           role: "",
-          present: Boolean(v.presentecheck),
+          present: v.presentecheck === true || v.presentecheck === "true",
         })),
       cargo: plain(p.arquetipoapt),
       supplies: plain(p.arquetipoapt_copy1),
@@ -164,5 +165,10 @@ export function convertActor(raw, type = "buscador") {
   warnings.push(
     "Aptitudes migradas como texto: confirma trigger, coste y automatización. Todas las propiedades no mapeadas se conservan en flags locales.",
   );
+  if (type === "buscador") {
+    actor.items.push(...identityPlan(actor));
+    delete actor.system.origin;
+    delete actor.system.archetype;
+  }
   return { actor, warnings };
 }

@@ -1,0 +1,85 @@
+<div class="ea-section-heading">
+<h2>{{#if
+      isShip
+    }}Bodega{{else}}Pertrechos{{/if}}</h2>
+<span>Bulto
+    {{system.bulk}}
+{{#if isPC}} / 10{{/if}}</span>
+<button
+    type="button"
+    data-action="create"
+  >Añadir</button>
+</div>
+<input
+  type="search"
+  data-ea-search
+  placeholder="Buscar por nombre, tipo o etiqueta"
+  aria-label="Buscar inventario"
+/>
+<div class="ea-inventory">{{#each items}}<details
+      data-inventory-row
+      class="draggable"
+      data-item-id="{{id}}"
+    >
+<summary>
+<img src="{{img}}" alt="" />
+<strong>{{name}}</strong>
+<small
+        >{{type}}
+          · ×{{system.quantity}}
+          ·
+          {{system.bulk}}
+          bulto</small>
+</summary>
+<p>{{system.description}}</p>
+<p>{{system.tags}}
+        · Usos
+        {{system.uses.value}}
+        /
+        {{system.uses.max}}</p>
+<div class="ea-grid">
+<button
+          type="button"
+          data-action="edit"
+        >Editar</button>
+<button
+          type="button"
+          data-action="toggle"
+          data-path="equipped"
+        >{{#if system.equipped}}Equipado{{else}}Equipar{{/if}}</button>
+<button
+          type="button"
+          data-action="remove"
+        >Eliminar</button>
+</div>
+</details>{{/each}}</div>{{#if isPC}}<div
+    class="ea-grid"
+  >
+<label>Botín<input
+        name="system.loot"
+        type="number"
+        value="{{system.loot}}"
+        min="0"
+      />
+</label>
+<label>Equipo de Buscador disponible<input
+        name="system.kit.value"
+        type="number"
+        min="0"
+        max="5"
+        value="{{system.kit.value}}"
+      />
+</label>
+</div>
+<p class="ea-muted">Materializar equipo requiere una
+    casilla disponible, espacio y acuerdo de la DJ.</p>{{/if}}<h3>Magia y
+  capacidades</h3>{{#each features}}<div
+    class="ea-list-row"
+    data-item-id="{{id}}"
+  >
+<button type="button" data-action="edit">{{name}}</button>
+<button
+      type="button"
+      data-action="remove"
+    >Eliminar</button>
+</div>{{/each}}

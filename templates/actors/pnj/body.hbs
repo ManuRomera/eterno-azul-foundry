@@ -1,0 +1,18 @@
+<section class="ea-body">{{#unless limited}}
+{{> "systems/eterno-azul/templates/actors/common/tabs.hbs"}}
+{{#if play}}<div class="ea-layout">{{> "systems/eterno-azul/templates/actors/pnj/sidebar.hbs"}}<main class="ea-main">
+<label>Rasgos<textarea name="system.traits">{{system.traits}}</textarea>
+</label>
+<label>Acciones características<textarea name="system.characteristicActions">{{system.characteristicActions}}</textarea>
+</label>
+<label>Ataques y consecuencias<textarea name="system.attacks">{{system.attacks}}</textarea>
+</label>{{> "systems/eterno-azul/templates/actors/common/health-features.hbs"}}</main>
+</div>{{/if}}
+{{#if inventory}}
+{{> "systems/eterno-azul/templates/actors/common/inventory.hbs"}}
+{{/if}}
+{{#if notes}}
+{{> "systems/eterno-azul/templates/actors/common/notes.hbs"}}
+{{/if}}
+{{else}}<p>El propietario no ha compartido los detalles de esta ficha.</p>{{/unless}}</section>
+

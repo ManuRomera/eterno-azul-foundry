@@ -2,7 +2,10 @@ import { ID, DISTANCES } from "../config.mjs";
 import { compareNaval, navalDamage, pursuit } from "../rules/naval.mjs";
 import { ChallengeApp } from "./challenge.mjs";
 import { prompt, select, check, field } from "../utils/ui.mjs";
-import { ApplicationV2, HandlebarsApplicationMixin } from "../compat/applications.mjs";
+import {
+  ApplicationV2,
+  HandlebarsApplicationMixin,
+} from "../compat/applications.mjs";
 export class NavalApp extends HandlebarsApplicationMixin(ApplicationV2) {
   constructor(actor) {
     super();
@@ -44,6 +47,8 @@ export class NavalApp extends HandlebarsApplicationMixin(ApplicationV2) {
         name,
         active: i === s.naval.distance,
       })),
+      batteries: this.actor.items.filter((i) => i.type === "bateria"),
+      crew: s.crew.filter((c) => c.present),
       ammo: this.actor.items
         .filter((i) => i.type === "municion")
         .reduce((n, i) => n + i.system.quantity, 0),

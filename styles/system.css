@@ -565,3 +565,42 @@
     padding: 14px;
   }
 }
+
+/* Action controls keep a readable label, explicit die and contextual affordance. */
+.ea-app .ea-action > button:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  text-align: left;
+  padding-inline: 0.75rem;
+  border-inline-start: 2px solid var(--ea-color-brass);
+}
+.ea-app .ea-action-context {
+  color: var(--ea-color-brass);
+  font-size: 0.7em;
+}
+.ea-app .ea-die-select {
+  font-variant-numeric: tabular-nums;
+  min-width: 2.8rem;
+  font-weight: 700;
+}
+.ea-app .ea-identity label > button {
+  width: 100%;
+  text-align: left;
+}
+.ea-app pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.ea-app .ea-navigation-summary {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--ea-border);
+  border-inline-start: 3px solid var(--ea-color-brass);
+  border-radius: var(--ea-radius);
+  background: #082a3be8;
+  margin-bottom: 0.8rem;
+}
+.ea-app .ea-navigation-summary p {
+  margin-block: 0.25rem;
+}

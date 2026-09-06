@@ -1,0 +1,25 @@
+<aside class="ea-sidebar">
+<button
+    type="button"
+    class="ea-primary"
+    data-action="naval"
+  >Abrir consola naval</button>
+<h3>Tripulación</h3><button type="button" data-action="crew">Puestos y embarque</button>{{#each system.crew}}<p
+    >{{name}} · {{role}} {{#if present}}✓{{/if}}</p>{{/each}}<p
+    class="ea-muted"
+  >Arrastra Actors para embarcarlos.</p>
+<label>Corazón actual<input
+      type="number"
+      min="0"
+      name="system.heart.value"
+      value="{{system.heart.value}}"
+    />
+</label>
+<label>Corazón total<input
+      type="number"
+      min="0"
+      name="system.heart.max"
+      value="{{system.heart.max}}"
+    />
+</label>
+</aside>

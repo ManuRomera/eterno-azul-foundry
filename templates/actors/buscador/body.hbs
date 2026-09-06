@@ -1,0 +1,14 @@
+<section class="ea-body">{{#unless limited}}
+{{> "systems/eterno-azul/templates/actors/common/tabs.hbs"}}
+{{#if play}}<div class="ea-layout">{{> "systems/eterno-azul/templates/actors/buscador/sidebar.hbs"}}<main class="ea-main">
+{{> "systems/eterno-azul/templates/actors/buscador/actions.hbs"}}
+{{> "systems/eterno-azul/templates/actors/common/health-features.hbs"}}</main>
+</div>{{/if}}
+{{#if inventory}}
+{{> "systems/eterno-azul/templates/actors/common/inventory.hbs"}}
+{{/if}}
+{{#if notes}}
+{{> "systems/eterno-azul/templates/actors/common/notes.hbs"}}
+{{/if}}
+{{else}}<p>El propietario no ha compartido los detalles de esta ficha.</p>{{/unless}}</section>
+

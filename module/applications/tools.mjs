@@ -89,7 +89,12 @@ export class ToolsApp extends HandlebarsApplicationMixin(ApplicationV2) {
       name: f.get("name") || "Nuevo Buscador",
       type: "buscador",
       img: "systems/eterno-azul/assets/compass.svg",
-      system: { origin: f.get("origin"), archetype: f.get("archetype") },
+      items: [
+        ["origen", f.get("origin")],
+        ["arquetipo", f.get("archetype")],
+      ]
+        .filter(([, name]) => name?.trim())
+        .map(([type, name]) => ({ type, name })),
     });
     actor.sheet.render({ force: true });
   }

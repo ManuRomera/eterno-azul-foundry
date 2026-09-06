@@ -17,3 +17,6 @@ Las operaciones de juego necesitan DJ conectada. Una cola global en esa sesión 
 
 ## UI
 Clases ea-app/ea-chat-card, Grid/Flex, container queries a 440/650/1000px, densidad como variante. Arte únicamente decorativo con gradientes de contraste. Sin listeners por temporizador ni dependencias de imágenes para controles.
+
+## Compatibilidad y composición
+module/compat centraliza capacidades, generación, APIs V2, normalización DOM y privacidad del chat. Los motores puros no conocen esta capa. EABuscadorSheet, EANPCSheet y EASurcazulSheet comparten interacciones en EAActorSheet y usan cuerpos propios con parciales comunes precargados mediante PARTS.templates. No se mantienen templates por versión de Foundry.

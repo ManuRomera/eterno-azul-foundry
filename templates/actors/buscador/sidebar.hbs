@@ -1,0 +1,43 @@
+<aside class="ea-sidebar">
+<div class="ea-section-heading">
+<h3>Señas</h3>
+<button
+      type="button"
+      data-action="create"
+      data-type="sena"
+      aria-label="Añadir Seña"
+    >＋</button>
+</div>{{#each signs}}<div
+      class="ea-sign"
+      data-item-id="{{id}}"
+    >
+<button type="button" data-action="edit">
+<strong>{{name}}</strong>
+<span
+        >d{{system.die}}</span>
+</button>
+</div>{{/each}}<p class="ea-muted">Sin
+    Seña aplicable: +1d6</p>
+<div class="ea-section-heading">
+<h3
+    >Vínculos</h3>
+<button
+      type="button"
+      data-action="create"
+      data-type="vinculo"
+      aria-label="Añadir Vínculo"
+    >＋</button>
+</div>{{#each bonds}}<div
+      class="ea-bond"
+      data-item-id="{{id}}"
+    >
+<button type="button" data-action="edit">{{name}}</button>
+<button
+        type="button"
+        data-action="toggle"
+        data-path="exhausted"
+      >{{#if system.exhausted}}Agotado · recuperar{{else}}Disponible{{/if}}</button>
+</div>{{/each}}<p
+    class="ea-muted"
+  >Arrastra otro Actor para crear un Vínculo. Úsalo desde su Desafío.</p>
+</aside>

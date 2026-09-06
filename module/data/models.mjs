@@ -44,6 +44,8 @@ const effect = () =>
 export class BuscadorData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
+      // Legacy text retained only to read old Actors; migration clears it.
+      identity: new O({ originId: text(), archetypeId: text() }),
       origin: text(),
       archetype: text(),
       brio: resource(3, 6),

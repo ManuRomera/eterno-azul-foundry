@@ -1,0 +1,42 @@
+{{#if isPC}}<label>Biografía<textarea
+      name="system.biography"
+    >{{system.biography}}</textarea>
+</label>
+<label>Trasfondo<textarea
+      name="system.background"
+    >{{system.background}}</textarea>
+</label>
+<label>Bríos actuales<input
+      name="system.brio.value"
+      type="number"
+      min="0"
+      value="{{system.brio.value}}"
+    />
+</label>
+<label>Navío (UUID)<input
+      name="system.shipUuid"
+      value="{{system.shipUuid}}"
+    />
+</label>{{else}}<label>Descripción<textarea
+      name="system.description"
+    >{{system.description}}</textarea>
+</label>{{/if}}
+{{#if isShip}}<label
+  >Carga<textarea name="system.cargo">{{system.cargo}}</textarea>
+</label>
+<label
+  >Víveres<textarea
+      name="system.supplies"
+    >{{system.supplies}}</textarea>
+</label>
+<label>Viajeros<textarea
+      name="system.passengers"
+    >{{system.passengers}}</textarea>
+</label>{{/if}}<label>Notas compartidas con
+  observadores<textarea
+    name="system.notes"
+  >{{system.notes}}</textarea>
+</label>
+<p class="ea-muted">Guarda secretos de DJ
+  en un Diario con permisos privados. La ocultación visual de un campo no
+  sustituye los permisos de Foundry.</p>

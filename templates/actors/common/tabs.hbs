@@ -1,0 +1,25 @@
+<nav class="ea-tabs" aria-label="Secciones">
+<button
+    type="button"
+    data-action="tab"
+    data-tab="play"
+    aria-pressed="{{play}}"
+  >{{#if isShip}}Navegación{{else}}En juego{{/if}}</button>
+<button
+    type="button"
+    data-action="tab"
+    data-tab="inventory"
+    aria-pressed="{{inventory}}"
+  >{{#if isShip}}Bodega y armamento{{else}}Pertrechos y magia{{/if}}</button>
+<button
+    type="button"
+    data-action="tab"
+    data-tab="notes"
+    aria-pressed="{{notes}}"
+  >Historia y ajustes</button>
+<button
+    type="button"
+    data-action="compact"
+    aria-label="Cambiar densidad"
+  >↔</button>
+</nav>

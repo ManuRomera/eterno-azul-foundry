@@ -1,0 +1,5 @@
+<h2>¿Qué haces?</h2>
+<div class="ea-actions">{{#each actions}}<div class="ea-action">
+<button type="button" data-action="roll" data-key="{{key}}" title="Tirar · Mayús para reserva manual{{#if related}} · {{related}}{{/if}}"><span class="ea-action-name">{{label}}</span>{{#if related}}<span class="ea-action-context" aria-label="Capacidades relacionadas">✦</span>{{/if}}</button>
+<button type="button" class="ea-die-select" data-action="die" data-key="{{key}}" aria-label="Cambiar dado de {{label}}">d{{die}}</button>
+</div>{{/each}}</div>

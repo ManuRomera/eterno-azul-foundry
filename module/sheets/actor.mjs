@@ -1,4 +1,5 @@
-import { ID, ACTIONS, TYPES } from "../config.mjs";
+import { identityItem, migrateIdentity } from "../migrations/identity.mjs";
+import { ID, ACTIONS, TYPES, DISTANCES } from "../config.mjs";
 import { DICE } from "../rules/challenge.mjs";
 import { ChallengeApp } from "../applications/challenge.mjs";
 import { NavalApp } from "../applications/naval.mjs";
@@ -26,6 +27,7 @@ export class EAActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     window: { resizable: true },
     form: { submitOnChange: true },
     actions: {
+      identity: EAActorSheet.identity,
       tab: EAActorSheet.tab,
       roll: EAActorSheet.roll,
       die: EAActorSheet.die,
@@ -37,13 +39,24 @@ export class EAActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       damage: EAActorSheet.damage,
       rest: EAActorSheet.rest,
       naval: EAActorSheet.naval,
+      crew: EAActorSheet.crew,
       compact: EAActorSheet.compact,
     },
   };
   static PARTS = {
     header: { template: "systems/eterno-azul/templates/actors/header.hbs" },
     body: {
-      template: "systems/eterno-azul/templates/actors/body.hbs",
+      template: "systems/eterno-azul/templates/actors/buscador/body.hbs",
+      templates: [
+        "common/tabs.hbs",
+        "common/health-features.hbs",
+        "common/inventory.hbs",
+        "common/notes.hbs",
+        "buscador/sidebar.hbs",
+        "buscador/actions.hbs",
+        "pnj/sidebar.hbs",
+        "surcazul/sidebar.hbs",
+      ].map((p) => `systems/eterno-azul/templates/actors/${p}`),
       scrollable: [""],
     },
   };
@@ -58,6 +71,8 @@ export class EAActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       img: a.img,
       system: s,
       type: a.type,
+      origin: identityItem(a, "origin"),
+      archetype: identityItem(a, "archetype"),
       isPC: a.type === "buscador",
       isNPC: a.type === "pnj",
       isShip: a.type === "surcazul",
@@ -72,6 +87,14 @@ export class EAActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
             key,
             label,
             die: s.actions?.[key] || "—",
+            related: a.items
+              .filter(
+                (i) =>
+                  i.system.effect?.actions?.includes(key) ||
+                  i.system.affectedActions?.includes(key),
+              )
+              .map((i) => i.name)
+              .join(" · "),
           })),
       pips: s.brio
         ? Array.from(
@@ -107,6 +130,16 @@ export class EAActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
           system: i.system,
         })),
       types: Object.entries(TYPES).map(([id, label]) => ({ id, label })),
+      navalDistance: s.naval ? DISTANCES[s.naval.distance] : "",
+      navalRival:
+        !limited && s.naval?.opponentUuid
+          ? ((await fromUuid(s.naval.opponentUuid))?.name ??
+            "Rival no disponible")
+          : "Sin rival seleccionado",
+      ammo: a.items
+        .filter((i) => i.type === "municion")
+        .reduce((sum, i) => sum + i.system.quantity, 0),
+      batteries: a.items.filter((i) => i.type === "bateria"),
       shipStats: [
         ["maneuver", "Maniobra"],
         ["sail", "Vela"],
@@ -148,6 +181,33 @@ export class EAActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   async close(o) {
     this.savePrefs();
     return super.close(o);
+  }
+  static async identity(e, t) {
+    if (!this.isEditable) return;
+    await migrateIdentity(this.actor);
+    const key = t.dataset.key,
+      type = key === "origin" ? "origen" : "arquetipo";
+    const items = this.actor.items.filter((i) => i.type === type);
+    let item = identityItem(this.actor, key);
+    if (items.length > 1) {
+      const f = await prompt(
+        "Identidad del Buscador",
+        select(
+          "id",
+          "Seleccionar",
+          items.map((i) => [i.id, i.name]),
+          item?.id,
+        ),
+      );
+      if (!f) return;
+      item = this.actor.items.get(f.get("id"));
+    }
+    if (!item)
+      [item] = await this.actor.createEmbeddedDocuments("Item", [
+        { name: type === "origen" ? "Nuevo Origen" : "Nuevo Arquetipo", type },
+      ]);
+    await this.actor.update({ [`system.identity.${key}Id`]: item.id });
+    item.sheet.render({ force: true });
   }
   static async tab(e, t) {
     this.tab = t.dataset.tab;
@@ -279,6 +339,40 @@ export class EAActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     if (f?.has("safe"))
       await request("rest", this.actor, { kind: f.get("kind") });
   }
+  static async crew() {
+    if (!this.isEditable) return;
+    const crew = this.actor.system.crew;
+    if (!crew.length)
+      return ui.notifications.info("Arrastra un Actor para añadir tripulantes");
+    const pick = await prompt(
+      "Tripulación",
+      select(
+        "index",
+        "Tripulante",
+        crew.map((c, i) => [i, c.name]),
+      ),
+    );
+    if (!pick) return;
+    const index = Number(pick.get("index")),
+      member = crew[index];
+    if (!member) return;
+    const f = await prompt(
+      member.name,
+      field("role", "Puesto", member.role) +
+        check("present", "A bordo", member.present) +
+        check("remove", "Desembarcar"),
+    );
+    if (!f) return;
+    const rows = crew.map((c) => ({ ...c }));
+    if (f.has("remove")) rows.splice(index, 1);
+    else
+      rows[index] = {
+        ...member,
+        role: f.get("role"),
+        present: f.has("present"),
+      };
+    await this.actor.update({ "system.crew": rows });
+  }
   static naval() {
     new NavalApp(this.actor).render({ force: true });
   }
@@ -308,4 +402,26 @@ export class EAActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     }
     return actor;
   }
+}
+
+// Each type owns its body composition while shared interactions remain in the base.
+export class EABuscadorSheet extends EAActorSheet {}
+export class EANPCSheet extends EAActorSheet {
+  static DEFAULT_OPTIONS = { position: { width: 650, height: 700 } };
+  static PARTS = {
+    ...EAActorSheet.PARTS,
+    body: {
+      ...EAActorSheet.PARTS.body,
+      template: "systems/eterno-azul/templates/actors/pnj/body.hbs",
+    },
+  };
+}
+export class EASurcazulSheet extends EAActorSheet {
+  static PARTS = {
+    ...EAActorSheet.PARTS,
+    body: {
+      ...EAActorSheet.PARTS.body,
+      template: "systems/eterno-azul/templates/actors/surcazul/body.hbs",
+    },
+  };
 }

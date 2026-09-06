@@ -1,23 +1,25 @@
-# Estado del proyecto
+# Estado del proyecto · 2026-09-06
 
-Auditoría inicial completada el 5 de septiembre de 2026. Desarrollo en curso; NO hay release validada todavía.
+Continuación sobre el repositorio existente. No hay release publicada todavía.
 
-## Terminado
-- Repositorios públicos clonados y referencias fijadas.
-- Packs CSB abiertos con classic-level: tres plantillas Actor y una Item.
-- Guía oficial (40 páginas), cinco pregenerados y navío localizados en Shadowlands y extraídos para estudio privado.
-- Autenticación GitHub ManuRomera comprobada fuera del sandbox.
+| Área | Estado |
+|---|---|
+| Foundry v13 compatibility | APIs V2 y funciones principales probadas en 13.351 antes del refactor compat |
+| Foundry v14 compatibility | Contratos públicos auditados; runtime v14 no disponible; NO verificada |
+| Compatibility layer | Implementada en module/compat; diagnóstico y normalización; 5 tests unitarios |
+| UI refactor | Próxima fase: componentes por tipo e identidad estructurada |
+| QA v13 | Suite real anterior 18/18; hay que repetir tras nuevas modificaciones |
+| QA v14 | Pendiente por falta de runtime |
+| Release | Pendiente; download del manifest aún no existe |
 
-## En curso
-Motor puro, DataModels, hojas V2, migración segura, build reproducible.
+## Completado
+Auditoría CSB y reglas oficiales, motor puro, modelos especializados, hojas V2, operaciones con permisos, chat persistente, consola naval, importación local, compendio propio y assets Cartografía del Azul. Tests puros 13 + compatibilidad 5, validación estática correcta. Compatibilidad máxima declarada 14 y verified conservado en 13.351; idioma declarado solo español.
 
-## Pendiente
-Integración y pruebas reales, permisos, responsive, compendio propio, capturas, publicación y verificación externa.
+## Bloqueo real
+La revisión automática bloqueó el navegador aislado por límite de uso después de ejecutar QA 18/18. No se puede completar más QA de interfaz ni obtener la galería final en esta sesión mientras siga bloqueado. La captura preliminar docs/screenshots/buscador.png tiene encuadre incorrecto: no usar como galería final. No hay instalación v14 disponible; la actualización de generación exige instalador manual. No declarar tests pendientes como aprobados.
 
-## Limitaciones
-Foundry local 13.351. Objetivo v14; no declarar v14 verificada hasta probar esa versión.
-No se ha encontrado licencia de redistribución de textos y arte oficiales ni del módulo CSB. No incluirlos en GitHub.
-Creación completa, magia completa, carga naval y reparación detallada remiten al manual básico.
+## Próximos pasos
+Separar componentes de ficha, migrar identidad a Items, ampliar tests y documentos, preparar distribución. Repetir QA real v13 y v14; capturas y prueba de instalación limpia. Publicar solo con limitaciones explícitas si sigue sin ser posible completar QA.
 
-## Próxima tarea
-Implementar y probar el motor antes de conectarlo a las hojas.
+## Contenido
+Solo código/arte propio o aportado para este proyecto y documentación original. Los PDFs oficiales y los packs CSB de estudio quedan fuera de Git y del ZIP. Creación y magia completas requieren el manual básico; no inventar reglas.

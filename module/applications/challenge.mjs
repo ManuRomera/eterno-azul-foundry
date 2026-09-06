@@ -2,7 +2,7 @@ import { ID, ACTIONS } from "../config.mjs";
 import { buildPool } from "../rules/challenge.mjs";
 import { request } from "../documents/operations.mjs";
 import { prompt, select, check, esc } from "../utils/ui.mjs";
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+import { ApplicationV2, HandlebarsApplicationMixin } from "../compat/applications.mjs";
 export class ChallengeApp extends HandlebarsApplicationMixin(ApplicationV2) {
   constructor(actor, action = "armonizar", options = {}) {
     super();

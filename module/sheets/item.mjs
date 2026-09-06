@@ -1,6 +1,9 @@
 import { TYPES, ACTIONS } from "../config.mjs";
 import { esc, label, select } from "../utils/ui.mjs";
-const { HandlebarsApplicationMixin } = foundry.applications.api;
+import {
+  HandlebarsApplicationMixin,
+  ItemSheetV2,
+} from "../compat/applications.mjs";
 function controls(value, path = "system") {
   return Object.entries(value)
     .map(([k, v]) => {
@@ -53,9 +56,7 @@ function controls(value, path = "system") {
     })
     .join("");
 }
-export class EAItemSheet extends HandlebarsApplicationMixin(
-  foundry.applications.sheets.ItemSheetV2,
-) {
+export class EAItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   static DEFAULT_OPTIONS = {
     classes: ["ea-app", "ea-item"],
     position: { width: 520, height: 650 },

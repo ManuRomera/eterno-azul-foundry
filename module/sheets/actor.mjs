@@ -4,10 +4,11 @@ import { ChallengeApp } from "../applications/challenge.mjs";
 import { NavalApp } from "../applications/naval.mjs";
 import { request } from "../documents/operations.mjs";
 import { prompt, field, select, check, esc } from "../utils/ui.mjs";
-const { HandlebarsApplicationMixin } = foundry.applications.api;
-export class EAActorSheet extends HandlebarsApplicationMixin(
-  foundry.applications.sheets.ActorSheetV2,
-) {
+import {
+  HandlebarsApplicationMixin,
+  ActorSheetV2,
+} from "../compat/applications.mjs";
+export class EAActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   constructor(options) {
     const key = `ea.${game.world.id}.${game.user.id}.${options.document.uuid}`;
     let prefs = {};

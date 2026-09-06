@@ -2,7 +2,7 @@ import { ID, DISTANCES } from "../config.mjs";
 import { compareNaval, navalDamage, pursuit } from "../rules/naval.mjs";
 import { ChallengeApp } from "./challenge.mjs";
 import { prompt, select, check, field } from "../utils/ui.mjs";
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+import { ApplicationV2, HandlebarsApplicationMixin } from "../compat/applications.mjs";
 export class NavalApp extends HandlebarsApplicationMixin(ApplicationV2) {
   constructor(actor) {
     super();

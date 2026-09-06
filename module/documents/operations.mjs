@@ -1,3 +1,4 @@
+import { createMessage, rollPrivacy } from "../compat/chat.mjs";
 import { ID, ACTIONS } from "../config.mjs";
 import {
   buildPool,
@@ -24,7 +25,7 @@ export async function request(operation, actor, payload = {}) {
     throw new Error(
       "Conecta una DJ para resolver operaciones compartidas con seguridad",
     );
-  return ChatMessage.create({
+  return createMessage({
     content: `<div class="ea-chat-card">Solicitud: ${esc(operation)} · ${esc(actor.name)}</div>`,
     whisper: [
       ...new Set([
@@ -176,19 +177,16 @@ export async function execute({ operation, actorUuid, payload: p }, user) {
       flags: { [ID]: { challenge: data } },
       rolls: rolled.roll ? [rolled.roll] : [],
     };
-    chat.user = user.id;
-    const gmIds = game.users.filter((u) => u.isGM).map((u) => u.id);
-    chat.whisper =
-      mode === "publicroll"
-        ? []
-        : mode === "selfroll"
-          ? [user.id]
-          : mode === "blindroll"
-            ? gmIds
-            : [...new Set([...gmIds, user.id])];
-    chat.blind = mode === "blindroll";
+    Object.assign(
+      chat,
+      rollPrivacy(
+        mode,
+        user.id,
+        game.users.filter((u) => u.isGM).map((u) => u.id),
+      ),
+    );
     // Roll documents are attached to the message; Dice So Nice handles them when present.
-    return ChatMessage.create(chat);
+    return createMessage(chat);
   }
   if (operation === "reroll") {
     const message = game.messages.get(p.messageId),

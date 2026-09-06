@@ -1,3 +1,5 @@
+import { diagnostic, versionInfo } from "./compat/runtime.mjs";
+import { DocumentSheetConfig } from "./compat/applications.mjs";
 import { ID, TYPES } from "./config.mjs";
 import { actorModels, itemModels } from "./data/models.mjs";
 import { EAActorSheet } from "./sheets/actor.mjs";
@@ -18,22 +20,16 @@ Hooks.once("init", () => {
   CONFIG.Item.typeLabels = Object.fromEntries(
     Object.keys(TYPES).map((k) => [k, `EA.Item.${k}`]),
   );
-  foundry.applications.apps.DocumentSheetConfig.registerSheet(
-    Actor,
-    ID,
-    EAActorSheet,
-    {
-      types: Object.keys(actorModels),
-      makeDefault: true,
-      label: "Eterno Azul",
-    },
-  );
-  foundry.applications.apps.DocumentSheetConfig.registerSheet(
-    Item,
-    ID,
-    EAItemSheet,
-    { types: Object.keys(itemModels), makeDefault: true, label: "Eterno Azul" },
-  );
+  DocumentSheetConfig.registerSheet(Actor, ID, EAActorSheet, {
+    types: Object.keys(actorModels),
+    makeDefault: true,
+    label: "Eterno Azul",
+  });
+  DocumentSheetConfig.registerSheet(Item, ID, EAItemSheet, {
+    types: Object.keys(itemModels),
+    makeDefault: true,
+    label: "Eterno Azul",
+  });
   CONFIG.Combat.initiative = { formula: null, decimals: 0 };
   game.settings.registerMenu(ID, "tools", {
     name: "Cartografía del Azul",
@@ -43,9 +39,13 @@ Hooks.once("init", () => {
     type: ToolsApp,
     restricted: false,
   });
-  game.eternoAzul = { ChallengeApp, NavalApp, ToolsApp, request };
+  game.eternoAzul = { ChallengeApp, NavalApp, ToolsApp, request, diagnostic };
 });
 Hooks.once("ready", () => {
+  const v = versionInfo();
+  console.info(
+    `Eterno Azul ${game.system.version} · Foundry ${v.version} · compatibility profile ${v.profile}`,
+  );
   setupAuthority();
   setupCards(chatAction);
   setupInvitations();

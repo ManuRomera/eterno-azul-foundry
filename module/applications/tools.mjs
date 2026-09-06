@@ -1,14 +1,21 @@
+import { diagnostic } from "../compat/runtime.mjs";
+import { createMessage, rollPrivacy } from "../compat/chat.mjs";
+import { onChatRender } from "../compat/hooks.mjs";
 import { ID, ACTIONS } from "../config.mjs";
 import { prompt, field, select, esc } from "../utils/ui.mjs";
 import { ChallengeApp } from "./challenge.mjs";
 import { convertActor } from "../migrations/csb.mjs";
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+import {
+  ApplicationV2,
+  HandlebarsApplicationMixin,
+} from "../compat/applications.mjs";
 export class ToolsApp extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
     classes: ["ea-app"],
     window: { title: "Cartografía del Azul · herramientas", resizable: true },
     position: { width: 570, height: 540 },
     actions: {
+      diagnostic: ToolsApp.copyDiagnostic,
       challenge: ToolsApp.challenge,
       create: ToolsApp.create,
       import: ToolsApp.import,
@@ -21,7 +28,22 @@ export class ToolsApp extends HandlebarsApplicationMixin(ApplicationV2) {
     },
   };
   async _prepareContext() {
-    return { isGM: game.user.isGM };
+    return {
+      isGM: game.user.isGM,
+      diagnostic: JSON.stringify(diagnostic(), null, 2),
+    };
+  }
+  static async copyDiagnostic() {
+    try {
+      await navigator.clipboard.writeText(
+        JSON.stringify(diagnostic(), null, 2),
+      );
+      ui.notifications.info("Diagnóstico copiado");
+    } catch {
+      ui.notifications.warn(
+        "No se pudo acceder al portapapeles. Selecciona y copia el diagnóstico visible.",
+      );
+    }
   }
   static async challenge() {
     if (!game.user.isGM) return;
@@ -45,7 +67,7 @@ export class ToolsApp extends HandlebarsApplicationMixin(ApplicationV2) {
     };
     if (!Number.isSafeInteger(data.risk) || data.risk < 0)
       throw new Error("Riesgo inválido");
-    await ChatMessage.create({
+    await createMessage({
       content: `<article class="ea-chat-card"><small>DESAFÍO DE LA DJ</small><h3>${esc(data.name)}</h3><p>${esc(data.context)}</p><p>Riesgo ${data.risk}</p><p>${esc(data.consequences)}</p><button type="button" data-ea-respond>Responder con mi Buscador</button></article>`,
       whisper:
         f.get("visibility") === "gm"
@@ -100,10 +122,9 @@ export class ToolsApp extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 }
 export function setupInvitations() {
-  Hooks.on("renderChatMessageHTML", (message, html) => {
+  onChatRender((message, root) => {
     const d = message.getFlag(ID, "invitation");
     if (!d) return;
-    const root = html instanceof HTMLElement ? html : html[0];
     root
       .querySelector("[data-ea-respond]")
       ?.addEventListener("click", async () => {

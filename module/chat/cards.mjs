@@ -1,3 +1,4 @@
+import { onChatRender } from "../compat/hooks.mjs";
 import { ID, ACTIONS } from "../config.mjs";
 import { esc } from "../utils/ui.mjs";
 export function card(data) {
@@ -9,8 +10,7 @@ export function card(data) {
   return `<article class="ea-chat-card" data-ea-card><header><small>ETERNO AZUL · DESAFÍO</small><h3>${esc(data.actorName)} · ${esc(ACTIONS[data.action] ?? data.action)}</h3><p>${esc(data.signName ?? "Sin Seña")} ${data.context ? `· ${esc(data.context)}` : ""}</p></header><div class="ea-dice">${data.results.map((d) => `<span class="ea-die" title="${esc(d.source)} · d${d.faces}"><small>d${d.faces}</small><strong>${d.result}</strong></span>`).join("")}</div><div class="ea-result"><strong>${data.successes} éxitos</strong><span>Riesgo ${data.risk}</span></div><p class="ea-outcome">${names[data.outcome]}</p><details><summary>Reserva y márgenes</summary><p>${data.results.map((d) => `${esc(d.source)} d${d.faces}`).join(" + ")}</p><p>Éxito ${data.successMargin} · Consecuencia ${data.consequenceMargin} · Vínculos ${data.bondBonus ?? 0}</p>${data.bravata ? `<p>Bravata: ${esc(data.bravata)}</p>` : ""}<p>Revisión ${data.revision ?? 0}. Repetir sustituye los resultados anteriores.</p></details><footer><button type="button" data-ea-action="reroll">Brío · repetir</button><button type="button" data-ea-action="aptitude">Aptitud · repetir dados</button><button type="button" data-ea-action="assist">Ayudar con Vínculo</button></footer></article>`;
 }
 export function setupCards(handler) {
-  Hooks.on("renderChatMessageHTML", (message, html) => {
-    const root = html instanceof HTMLElement ? html : html[0];
+  onChatRender((message, root) => {
     if (!root || !message.getFlag(ID, "challenge")) return;
     root.querySelectorAll("[data-ea-action]").forEach((button) => {
       if (button.dataset.eaBound) return;

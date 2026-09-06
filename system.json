@@ -5,7 +5,8 @@
   "version": "0.1.0",
   "compatibility": {
     "minimum": "13.351",
-    "verified": "13.351"
+    "verified": "13.351",
+    "maximum": "14"
   },
   "authors": [
     {
@@ -13,18 +14,18 @@
       "url": "https://github.com/ManuRomera"
     }
   ],
-  "esmodules": ["module/eterno-azul.mjs"],
-  "styles": ["styles/tokens.css", "styles/system.css"],
+  "esmodules": [
+    "module/eterno-azul.mjs"
+  ],
+  "styles": [
+    "styles/tokens.css",
+    "styles/system.css"
+  ],
   "languages": [
     {
       "lang": "es",
       "name": "Español",
       "path": "lang/es.json"
-    },
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
     }
   ],
   "documentTypes": {

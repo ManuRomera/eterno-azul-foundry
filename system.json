@@ -13,13 +13,8 @@
       "url": "https://github.com/ManuRomera"
     }
   ],
-  "esmodules": [
-    "module/eterno-azul.mjs"
-  ],
-  "styles": [
-    "styles/tokens.css",
-    "styles/system.css"
-  ],
+  "esmodules": ["module/eterno-azul.mjs"],
+  "styles": ["styles/tokens.css", "styles/system.css"],
   "languages": [
     {
       "lang": "es",
@@ -77,5 +72,13 @@
   "grid": {
     "distance": 1,
     "units": "zona"
-  }
+  },
+  "background": "systems/eterno-azul/assets/ea-system-background.webp",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/eterno-azul/assets/ea-github-hero.webp",
+      "thumbnail": "systems/eterno-azul/assets/ea-system-icon.png"
+    }
+  ]
 }

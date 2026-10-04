@@ -19,6 +19,14 @@ Aventura, vínculos y navegación celeste con una interfaz de azul profundo, mar
 
 Las fichas usan cabeceras propias para Buscador, PNJ y Surcazul, controles HTML, listas compactas y densidad configurable. La consola naval muestra instrumentos, distancia, rival, tripulación y armamento. Las capturas finales siguen pendientes por un bloqueo del navegador de pruebas; no se presentan mockups como capturas reales.
 
+<p align="center">
+  <img src="docs/img/ficha.png" alt="Ficha de Buscador con Señas, Desafíos y Bríos" width="49%">
+  <img src="docs/img/surcazul.png" alt="Ficha de Surcazul con valores de navegación" width="49%">
+</p>
+<p align="center">
+  <img src="docs/img/consola.png" alt="Consola naval del Surcazul: abordaje, fuego, seguimiento, avistamiento y escapada" width="70%">
+</p>
+
 ## Instalación
 
 En **Game Systems → Install System → Manifest URL**, pega:

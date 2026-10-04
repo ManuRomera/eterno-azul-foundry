@@ -3,9 +3,13 @@
 # Eterno Azul para Foundry VTT
 
 [![Validación](https://github.com/ManuRomera/eterno-azul-foundry/actions/workflows/check.yml/badge.svg)](https://github.com/ManuRomera/eterno-azul-foundry/actions/workflows/check.yml)
-[![Release](https://img.shields.io/github/v/release/ManuRomera/eterno-azul-foundry?include_prereleases)](https://github.com/ManuRomera/eterno-azul-foundry/releases)
-![Foundry](https://img.shields.io/badge/Foundry-13.351%20%7C%2014%20pendiente-ceae71)
-[![Código MIT](https://img.shields.io/badge/código-MIT-blue)](LICENSE)
+<p align="center">
+  <a href="https://github.com/ManuRomera/eterno-azul-foundry/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/ManuRomera/eterno-azul-foundry?include_prereleases&style=for-the-badge&color=3f78b5&label=release"></a>
+  <a href="https://foundryvtt.com"><img alt="Foundry VTT V13" src="https://img.shields.io/badge/Foundry%20VTT-V13-57d8c8?style=for-the-badge"></a>
+  <a href="https://github.com/ManuRomera/eterno-azul-foundry/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/ManuRomera/eterno-azul-foundry/total?style=for-the-badge&color=ff7a1f"></a>
+  <img alt="Game system" src="https://img.shields.io/badge/type-game%20system-2b3245?style=for-the-badge">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-2b3245?style=for-the-badge"></a>
+</p>
 
 Aventura, vínculos y navegación celeste con una interfaz de azul profundo, marfil y latón. Sistema nativo en castellano, sin Custom System Builder ni módulos obligatorios.
 

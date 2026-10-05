@@ -88,3 +88,15 @@ Proyecto no oficial de ManuRomera. Eterno Azul pertenece a sus titulares. Obtén
 Código y SVG propio bajo MIT. Cartografía del Azul es el paquete gráfico aportado por ManuRomera para este sistema; su integración no lo convierte en arte oficial ni amplía automáticamente la licencia MIT del código. [Inventario de recursos](docs/ASSET-MANIFEST.md).
 
 Storypath Ultra y dnd5e se estudiaron como referencias técnicas, sin copiar su código, contenidos o identidad visual. [Auditoría de referencias](docs/REFERENCE-REVIEW.md).
+
+---
+
+<p align="center">
+  <a href="https://github.com/ManuRomera">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ManuRomera/ManuRomera/main/brand/MR_09_Monograma_Marfil_Transparente.png">
+      <img src="https://raw.githubusercontent.com/ManuRomera/ManuRomera/main/brand/MR_10_Monograma_Negro_Transparente.png" alt="MR · Manu Romera" height="56">
+    </picture>
+  </a><br>
+  <sub>Hecho por <a href="https://github.com/ManuRomera"><b>Manu Romera</b></a> · Digital RPG Design</sub>
+</p>
